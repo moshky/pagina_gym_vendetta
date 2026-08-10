@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 
 const anton = Anton({
@@ -26,6 +27,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={`${anton.variable} ${inter.variable} font-sans antialiased`}>
+        <Navbar />
         {children}
       </body>
     </html>
