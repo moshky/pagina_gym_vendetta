@@ -16,13 +16,13 @@ export default function Navbar() {
         </Link>
 
         <div className="hidden gap-8 md:flex">
-          <Link href="/" className="text-sm text-blanco transition hover:text-rojo">
+          <Link href="/" className="text-xl text-blanco transition hover:text-rojo">
             Inicio
           </Link>
-          <Link href="/planes" className="text-sm text-blanco transition hover:text-rojo">
+          <Link href="/planes" className="text-xl text-blanco transition hover:text-rojo">
             Planes
           </Link>
-          <Link href="/contacto" className="text-sm text-blanco transition hover:text-rojo">
+          <Link href="/contacto" className="text-xl text-blanco transition hover:text-rojo">
             Contacto
           </Link>
         </div>
@@ -30,13 +30,13 @@ export default function Navbar() {
         <div className="flex gap-3">
           <Link
             href="/login"
-            className="rounded border border-rojo px-4 py-2 text-sm text-blanco transition hover:bg-rojo"
+            className="rounded border border-rojo px-4 py-2 text-lg text-blanco transition hover:bg-rojo"
           >
             Iniciar sesión
           </Link>
           <Link
             href="/register"
-            className="rounded bg-rojo px-4 py-2 text-sm font-semibold text-blanco transition hover:bg-rojo-oscuro"
+            className="rounded bg-rojo px-4 py-2 text-lg font-semibold text-blanco transition hover:bg-rojo-oscuro"
           >
             Registrarse
           </Link>
