@@ -1,11 +1,38 @@
 import { crearPlan } from "../actions";
+import { obtenerEjercicios } from "@/lib/wger";
 
-export default function NuevoPlanPage() {
+export default async function NuevoPlanPage() {
+  const ejercicios = await obtenerEjercicios();
+
   return (
     <section className="mx-auto max-w-lg px-6 py-16">
       <h1 className="mb-8 font-display text-3xl text-blanco">
         NUEVO <span className="text-rojo">PLAN</span>
       </h1>
+
+      {/* Lista de ejercicios de referencia, desde la API externa */}
+      <div className="mb-8 rounded border border-rojo-oscuro p-4">
+        <h2 className="mb-3 font-display text-lg text-blanco">
+          Ejercicios de referencia
+        </h2>
+        {ejercicios.length === 0 ? (
+          <p className="text-sm text-gris">
+            No se pudo cargar la lista de ejercicios en este momento. Puedes
+            escribir el plan manualmente.
+          </p>
+        ) : (
+          <ul className="flex flex-wrap gap-2">
+            {ejercicios.map((ej) => (
+              <li
+                key={ej.id}
+                className="rounded bg-negro px-3 py-1 text-sm text-blanco"
+              >
+                {ej.name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
 
       <form action={crearPlan} className="flex flex-col gap-4">
         <div>
