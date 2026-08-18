@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase-server";
 
 function calcularDiasParaVencer(fechaFin: string) {
@@ -30,6 +31,68 @@ export default async function DashboardPage() {
     .eq("id", user.id)
     .single();
 
+  // ---------- VISTA ENTRENADOR ----------
+  if (perfil?.rol === "entrenador") {
+    const { data: misPlanes } = await supabase
+      .from("planes")
+      .select("*, perfiles!planes_cliente_id_fkey(nombre, apellido)")
+      .eq("entrenador_id", user.id);
+
+    const totalClientesConPlan = new Set(
+      misPlanes?.map((p) => p.cliente_id)
+    ).size;
+
+    return (
+      <section className="mx-auto max-w-4xl px-6 py-16">
+        <h1 className="mb-2 font-display text-3xl text-blanco">
+          Hola, <span className="text-rojo">{perfil?.nombre}</span>
+        </h1>
+        <p className="mb-10 text-gris">Este es tu panel de entrenador.</p>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded border border-rojo-oscuro bg-negro p-6">
+            <h2 className="mb-4 font-display text-xl text-blanco">
+              Resumen
+            </h2>
+            <p className="text-blanco">
+              Planes creados:{" "}
+              <span className="font-semibold text-rojo">
+                {misPlanes?.length ?? 0}
+              </span>
+            </p>
+            <p className="mt-2 text-blanco">
+              Clientes con plan activo:{" "}
+              <span className="font-semibold text-rojo">
+                {totalClientesConPlan}
+              </span>
+            </p>
+          </div>
+
+          <div className="rounded border border-rojo-oscuro bg-negro p-6">
+            <h2 className="mb-4 font-display text-xl text-blanco">
+              Acciones rápidas
+            </h2>
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/dashboard/planes/nuevo"
+                className="rounded bg-rojo px-4 py-2 text-center text-sm font-semibold text-blanco transition hover:bg-rojo-oscuro"
+              >
+                + Crear nuevo plan
+              </Link>
+              <Link
+                href="/dashboard/planes"
+                className="rounded border border-rojo px-4 py-2 text-center text-sm text-blanco transition hover:bg-rojo"
+              >
+                Ver todos mis planes
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // ---------- VISTA CLIENTE ----------
   const { data: plan } = await supabase
     .from("planes")
     .select("*")
@@ -58,11 +121,7 @@ export default async function DashboardPage() {
       <h1 className="mb-2 font-display text-3xl text-blanco">
         Hola, <span className="text-rojo">{perfil?.nombre ?? "Usuario"}</span>
       </h1>
-      <p className="mb-10 text-gris">
-        {perfil?.rol === "entrenador"
-          ? "Este es tu panel de entrenador."
-          : "Este es tu panel de seguimiento."}
-      </p>
+      <p className="mb-10 text-gris">Este es tu panel de seguimiento.</p>
 
       <div className="grid gap-6 md:grid-cols-2">
         <div className="rounded border border-rojo-oscuro bg-negro p-6">

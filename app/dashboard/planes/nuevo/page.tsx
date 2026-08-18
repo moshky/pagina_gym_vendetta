@@ -1,8 +1,15 @@
 import { crearPlan } from "../actions";
 import { obtenerEjercicios } from "@/lib/wger";
+import { createClient } from "@/lib/supabase-server";
 
 export default async function NuevoPlanPage() {
   const ejercicios = await obtenerEjercicios();
+
+  const supabase = await createClient();
+  const { data: clientes } = await supabase
+    .from("perfiles")
+    .select("id, nombre, apellido")
+    .eq("rol", "cliente");
 
   return (
     <section className="mx-auto max-w-lg px-6 py-16">
@@ -10,7 +17,6 @@ export default async function NuevoPlanPage() {
         NUEVO <span className="text-rojo">PLAN</span>
       </h1>
 
-      {/* Lista de ejercicios de referencia, desde la API externa */}
       <div className="mb-8 rounded border border-rojo-oscuro p-4">
         <h2 className="mb-3 font-display text-lg text-blanco">
           Ejercicios de referencia
@@ -37,16 +43,21 @@ export default async function NuevoPlanPage() {
       <form action={crearPlan} className="flex flex-col gap-4">
         <div>
           <label htmlFor="cliente_id" className="mb-1 block text-sm text-blanco">
-            ID del cliente
+            Cliente
           </label>
-          <input
+          <select
             id="cliente_id"
             name="cliente_id"
-            type="text"
             required
-            placeholder="UUID del perfil del cliente"
             className="w-full rounded border border-rojo-oscuro bg-negro px-4 py-2 text-blanco outline-none focus:border-rojo"
-          />
+          >
+            <option value="">Selecciona un cliente</option>
+            {clientes?.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.nombre} {c.apellido}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div>
