@@ -123,6 +123,13 @@ export default async function DashboardPage() {
       </h1>
       <p className="mb-10 text-gris">Este es tu panel de seguimiento.</p>
 
+      <Link
+        href="/dashboard/pesajes"
+        className="mb-6 inline-block rounded bg-rojo px-4 py-2 text-sm font-semibold text-blanco transition hover:bg-rojo-oscuro"
+      >
+        Registrar / ver mis pesajes
+      </Link>
+
       <div className="grid gap-6 md:grid-cols-2">
         <div className="rounded border border-rojo-oscuro bg-negro p-6">
           <h2 className="mb-4 font-display text-xl text-blanco">
@@ -140,18 +147,35 @@ export default async function DashboardPage() {
                 Vigencia: {plan.fecha_inicio} → {plan.fecha_fin}
               </p>
               <p
-                className={`mt-4 inline-block rounded px-3 py-1 text-sm font-semibold ${
-                  vencido
-                    ? "bg-rojo text-blanco"
-                    : diasParaVencer !== null && diasParaVencer <= 7
+                className={`mt-4 inline-block rounded px-3 py-1 text-sm font-semibold ${vencido
+                  ? "bg-rojo text-blanco"
+                  : diasParaVencer !== null && diasParaVencer <= 7
                     ? "bg-yellow-600 text-blanco"
                     : "bg-green-700 text-blanco"
-                }`}
+                  }`}
               >
                 {vencido
                   ? `Vencido hace ${Math.abs(diasParaVencer!)} días`
                   : `Vence en ${diasParaVencer} días`}
               </p>
+
+              <div className="mt-4 border-t border-rojo-oscuro pt-4">
+                <h3 className="mb-1 font-display text-sm text-blanco">
+                  Plan de entrenamiento
+                </h3>
+                <p className="whitespace-pre-line text-sm text-gris">
+                  {plan.plan_entrenamiento}
+                </p>
+              </div>
+
+              <div className="mt-4 border-t border-rojo-oscuro pt-4">
+                <h3 className="mb-1 font-display text-sm text-blanco">
+                  Plan nutricional
+                </h3>
+                <p className="whitespace-pre-line text-sm text-gris">
+                  {plan.plan_nutricional}
+                </p>
+              </div>
             </>
           ) : (
             <p className="text-gris">

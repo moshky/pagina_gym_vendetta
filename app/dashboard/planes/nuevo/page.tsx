@@ -1,6 +1,7 @@
 import { crearPlan } from "../actions";
 import { obtenerEjercicios } from "@/lib/wger";
 import { createClient } from "@/lib/supabase-server";
+import Link from "next/link";
 
 export default async function NuevoPlanPage() {
   const ejercicios = await obtenerEjercicios();
@@ -13,7 +14,11 @@ export default async function NuevoPlanPage() {
 
   return (
     <section className="mx-auto max-w-lg px-6 py-16">
-      <h1 className="mb-8 font-display text-3xl text-blanco">
+      <Link href="/dashboard" className="text-sm text-rojo hover:underline">
+        ← Volver a mi panel
+      </Link>
+
+      <h1 className="mb-8 mt-4 font-display text-3xl text-blanco">
         NUEVO <span className="text-rojo">PLAN</span>
       </h1>
 

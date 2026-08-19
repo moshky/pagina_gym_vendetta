@@ -1,11 +1,21 @@
 import { iniciarSesion } from "./actions";
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { error?: string };
+}) {
   return (
     <section className="mx-auto max-w-md px-6 py-16">
       <h1 className="mb-8 text-center font-display text-3xl text-blanco">
         INICIAR <span className="text-rojo">SESIÓN</span>
       </h1>
+
+      {searchParams.error && (
+        <div className="mb-6 rounded border border-rojo bg-rojo/10 px-4 py-3 text-sm text-rojo">
+          Correo o contraseña incorrectos. Intenta de nuevo.
+        </div>
+      )}
 
       <form action={iniciarSesion} className="flex flex-col gap-4">
         <div>

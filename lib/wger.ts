@@ -1,15 +1,14 @@
 export type Ejercicio = {
   id: number;
   name: string;
-  category: number;
 };
 
 export async function obtenerEjercicios(): Promise<Ejercicio[]> {
   try {
     const res = await fetch(
-      "https://wger.de/api/v2/exercise/?language=2&limit=15&status=2",
+      "https://wger.de/api/v2/exerciseinfo/?language=2&limit=15&status=2",
       {
-        next: { revalidate: 3600 }, // cache de 1 hora
+        next: { revalidate: 3600 },
       }
     );
 
@@ -18,7 +17,20 @@ export async function obtenerEjercicios(): Promise<Ejercicio[]> {
     }
 
     const data = await res.json();
-    return data.results ?? [];
+
+    const ejercicios: Ejercicio[] = (data.results ?? [])
+      .map((item: any) => {
+        const traduccion =
+          item.translations?.find((t: any) => t.language === 2) ??
+          item.translations?.[0];
+        return {
+          id: item.id,
+          name: traduccion?.name ?? "",
+        };
+      })
+      .filter((ej: Ejercicio) => ej.name !== "");
+
+    return ejercicios;
   } catch (error) {
     console.error("No se pudo cargar la lista de ejercicios:", error);
     return [];

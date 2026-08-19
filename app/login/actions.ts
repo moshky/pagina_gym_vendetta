@@ -21,3 +21,9 @@ export async function iniciarSesion(formData: FormData) {
 
   redirect("/dashboard");
 }
+
+export async function cerrarSesion() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect("/");
+}
