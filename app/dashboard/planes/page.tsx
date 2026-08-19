@@ -23,6 +23,27 @@ export default async function PlanesEntrenadorPage() {
     console.error("Error al cargar planes:", error.message);
   }
 
+  const clienteIds = planes?.map((p) => p.cliente_id) ?? [];
+
+  const { data: pesajesRecientes } =
+    clienteIds.length > 0
+      ? await supabase
+          .from("pesajes")
+          .select("cliente_id, peso, fecha")
+          .in("cliente_id", clienteIds)
+          .order("fecha", { ascending: false })
+      : { data: [] };
+
+   const ultimoPesajePorCliente = new Map<string, { peso: number; fecha: string }>();
+  pesajesRecientes?.forEach((p) => {
+    if (!ultimoPesajePorCliente.has(p.cliente_id)) {
+      ultimoPesajePorCliente.set(p.cliente_id, {
+        peso: p.peso,
+        fecha: p.fecha,
+      });
+    }
+  });
+
   return (
     <section className="mx-auto max-w-4xl px-6 py-16">
       <Link href="/dashboard" className="text-sm text-rojo hover:underline">
@@ -57,6 +78,17 @@ export default async function PlanesEntrenadorPage() {
                 <p className="text-sm text-gris capitalize">
                   {plan.tipo} · {plan.fecha_inicio} → {plan.fecha_fin}
                 </p>
+                {ultimoPesajePorCliente.has(plan.cliente_id) ? (
+                  <p className="mt-1 text-sm text-rojo">
+                    Último peso:{" "}
+                    {ultimoPesajePorCliente.get(plan.cliente_id)!.peso} kg (
+                    {ultimoPesajePorCliente.get(plan.cliente_id)!.fecha})
+                  </p>
+                ) : (
+                  <p className="mt-1 text-xs text-gris">
+                    Sin pesajes registrados
+                  </p>
+                )}
               </div>
 
               <div className="flex gap-2">
