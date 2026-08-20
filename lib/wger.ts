@@ -19,9 +19,9 @@ export async function obtenerEjercicios(): Promise<Ejercicio[]> {
     const data = await res.json();
 
     const ejercicios: Ejercicio[] = (data.results ?? [])
-      .map((item: any) => {
+      .map((item: { id: number; translations?: { language: number; name: string }[] }) => {
         const traduccion =
-          item.translations?.find((t: any) => t.language === 2) ??
+          item.translations?.find((t: { language: number; name: string }) => t.language === 2) ??
           item.translations?.[0];
         return {
           id: item.id,

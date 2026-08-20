@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Anton, Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import WhatsappButton from "@/components/WhatsAppFlotante";
 import "./globals.css";
 import WhatsAppFlotante from "@/components/WhatsAppFlotante";
 
