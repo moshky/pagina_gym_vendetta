@@ -45,5 +45,5 @@ export async function registrarUsuario(formData: FormData) {
     redirect("/register?error=true");
   }
 
-  redirect("/login");
+  redirect("/dashboard");
 }
