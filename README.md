@@ -65,7 +65,7 @@ ENTRENADOR_INVITE_CODE=
 | Cliente | Camila Torres | camila.torres@test.com | 123456 |
 | Cliente | Diego Ramírez | diego.ramirez@test.com | 123456 |
 
-*(Para registrar una cuenta de entrenador nueva, se necesita el código de invitación configurado en `ENTRENADOR_INVITE_CODE`.)*
+*(Para registrar una cuenta de entrenador nueva, se necesita el código de invitación `Vendetta2026.)*
 
 ## Funcionalidades implementadas
 
