@@ -14,6 +14,13 @@ export async function registrarUsuario(formData: FormData) {
   const talla = formData.get("talla") as string;
   const rol = formData.get("rol") as string;
 
+    const codigo_invitacion = formData.get("codigo_invitacion") as string;
+
+  if (rol === "entrenador" && codigo_invitacion !== process.env.ENTRENADOR_INVITE_CODE) {
+    console.error("Código de invitación incorrecto");
+    redirect("/register?error=true");
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,

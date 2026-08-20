@@ -1,11 +1,22 @@
 import { registrarUsuario } from "./actions";
 
-export default function RegisterPage() {
+export default function RegisterPage({
+  searchParams,
+}: {
+  searchParams: { error?: string };
+}) {
   return (
     <section className="mx-auto max-w-md px-6 py-16">
       <h1 className="mb-8 text-center font-display text-3xl text-blanco">
         CREAR <span className="text-rojo">CUENTA</span>
       </h1>
+
+      {searchParams.error && (
+        <div className="mb-6 rounded border border-rojo bg-rojo/10 px-4 py-3 text-sm text-rojo">
+          Hubo un problema al crear tu cuenta. Si te registraste como
+          entrenador, verifica el código de invitación.
+        </div>
+      )}
 
       <form action={registrarUsuario} className="flex flex-col gap-4">
         <div>
@@ -74,6 +85,19 @@ export default function RegisterPage() {
             <option value="cliente">Cliente</option>
             <option value="entrenador">Entrenador</option>
           </select>
+        </div>
+
+        <div>
+          <label htmlFor="codigo_invitacion" className="mb-1 block text-sm text-blanco">
+            Código de invitación (solo si eres entrenador)
+          </label>
+          <input
+            id="codigo_invitacion"
+            name="codigo_invitacion"
+            type="text"
+            placeholder="Déjalo vacío si eres cliente"
+            className="w-full rounded border border-rojo-oscuro bg-negro px-4 py-2 text-blanco outline-none focus:border-rojo"
+          />
         </div>
 
         <div>

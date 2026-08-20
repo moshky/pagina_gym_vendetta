@@ -102,6 +102,24 @@ export default function PesajesCliente({
             />
           </div>
         </div>
+        <div className="mt-4 flex gap-3">
+          <button
+            type="button"
+            className="rounded bg-rojo px-4 py-2 text-sm font-semibold text-blanco transition hover:bg-rojo-oscuro"
+          >
+            Buscar
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setDesde("");
+              setHasta("");
+            }}
+            className="rounded border border-rojo px-4 py-2 text-sm text-blanco transition hover:bg-rojo"
+          >
+            Limpiar
+          </button>
+        </div>
       </div>
 
       {pesajesFiltrados.length === 0 ? (
