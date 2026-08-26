@@ -81,6 +81,11 @@ ENTRENADOR_INVITE_CODE=
 - [x] Variables de entorno protegidas, nunca expuestas en el repositorio
 - [x] Deploy funcional en Vercel
 
+## Video de defensa
+
+[Ver video de defensa] (https://ister-my.sharepoint.com/:v:/g/personal/viviana_arias_ister_edu_ec/IQALiEtayOaPQr8zBeDBsQrQAdat-Ab5Px9Vx0HZminOYFs?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=c3cKMa)
+
+
 ## Autor
 
 Viviana Arias — [GitHub](https://github.com/moshky)
